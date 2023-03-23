@@ -1,0 +1,1240 @@
+definitions:
+  deliveries.ErrorResponse:
+    properties:
+      error:
+        type: string
+    type: object
+  deliveries.JobOrderStatusResponse:
+    properties:
+      order_status:
+        type: string
+    type: object
+  deliveries.JobRequest:
+    properties:
+      destination:
+        $ref: '#/definitions/deliveries.Recipient'
+      origin:
+        $ref: '#/definitions/deliveries.Recipient'
+      worker_notes:
+        type: string
+    type: object
+  deliveries.JobResponse:
+    properties:
+      create_time:
+        type: string
+      creator:
+        type: integer
+      destination:
+        $ref: '#/definitions/deliveries.Recipient'
+      id:
+        type: string
+      last_time_modified:
+        type: string
+      order_status:
+        type: integer
+      origin:
+        $ref: '#/definitions/deliveries.Recipient'
+      short_id:
+        type: string
+      status:
+        type: integer
+      tracking_url:
+        type: string
+      worker:
+        type: integer
+      worker_notes:
+        type: string
+    type: object
+  deliveries.JobStatusResponse:
+    properties:
+      status:
+        type: string
+    type: object
+  deliveries.Recipient:
+    properties:
+      city:
+        type: string
+      company_name:
+        type: string
+      email_address:
+        type: string
+      first_line_address:
+        type: string
+      first_name:
+        type: string
+      latitude:
+        type: number
+      longitude:
+        type: number
+      notes:
+        type: string
+      phone_number:
+        type: string
+      postcode:
+        type: string
+      second_line_address:
+        type: string
+      second_name:
+        type: string
+      third_line_address:
+        type: string
+      town:
+        type: string
+    required:
+    - city
+    - first_line_address
+    - first_name
+    - postcode
+    type: object
+  deliverysvc.Job:
+    properties:
+      createTime:
+        type: string
+      creator:
+        type: integer
+      destinationCity:
+        type: string
+      destinationCompanyName:
+        description: Origin Details
+        type: string
+      destinationEmailAddress:
+        type: string
+      destinationFirstLineAddress:
+        type: string
+      destinationFirstName:
+        type: string
+      destinationLatitude:
+        type: number
+      destinationLongitude:
+        type: number
+      destinationNotes:
+        type: string
+      destinationPhoneNumber:
+        type: string
+      destinationPostcode:
+        type: string
+      destinationSecondLineAddress:
+        type: string
+      destinationSecondName:
+        type: string
+      destinationThirdLineAddress:
+        type: string
+      destinationTown:
+        type: string
+      id:
+        type: string
+      lastTimeModified:
+        type: string
+      orderStatus:
+        type: integer
+      originCity:
+        type: string
+      originCompanyName:
+        description: Destination Details
+        type: string
+      originEmailAddress:
+        type: string
+      originFirstLineAddress:
+        type: string
+      originFirstName:
+        type: string
+      originLatitude:
+        type: number
+      originLongitude:
+        type: number
+      originNotes:
+        type: string
+      originPhoneNumber:
+        type: string
+      originPostcode:
+        type: string
+      originSecondLineAddress:
+        type: string
+      originSecondName:
+        type: string
+      originThirdLineAddress:
+        type: string
+      originTown:
+        type: string
+      shortID:
+        type: string
+      status:
+        type: integer
+      trackingURL:
+        type: string
+      worker:
+        type: integer
+      workerNotes:
+        description: courier notes
+        type: string
+    type: object
+  management.ErrorResponse:
+    properties:
+      error:
+        type: string
+    type: object
+  payments.ClientSecret:
+    properties:
+      clientSecret:
+        type: string
+    type: object
+  payments.ErrorResponse:
+    properties:
+      error:
+        $ref: '#/definitions/payments.ErrorResponseMessage'
+    type: object
+  payments.ErrorResponseMessage:
+    properties:
+      message:
+        type: string
+    type: object
+  payments.PublicKey:
+    properties:
+      publishableKey:
+        type: string
+    type: object
+  useraccount.DriverInfo:
+    properties:
+      email:
+        type: string
+      name:
+        type: string
+      phone_number:
+        type: string
+    type: object
+  useraccount.DriverLocation:
+    properties:
+      latitude:
+        type: string
+      longitude:
+        type: string
+    type: object
+  useraccount.DriverStatus:
+    properties:
+      status:
+        type: boolean
+    type: object
+  useraccount.ErrorResponse:
+    properties:
+      error:
+        type: string
+    type: object
+  useraccount.LoginUser:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    type: object
+  useraccount.NewAPIKeyResponse:
+    properties:
+      key:
+        type: string
+    type: object
+  useraccount.UpdatePasswordRequest:
+    properties:
+      email:
+        type: string
+      new_password:
+        type: string
+      old_password:
+        type: string
+    type: object
+  useraccount.UserInfo:
+    properties:
+      email:
+        type: string
+      name:
+        type: string
+      phoneNumber:
+        type: string
+    type: object
+  useraccount.UserRequest:
+    properties:
+      email:
+        type: string
+      name:
+        type: string
+      password:
+        type: string
+      phone_number:
+        type: string
+    required:
+    - email
+    - name
+    - password
+    - phone_number
+    type: object
+  useraccount.UserResponse:
+    properties:
+      createTime:
+        type: string
+      email:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      phoneNumber:
+        type: string
+    type: object
+  usersvc.DriverState:
+    properties:
+      active:
+        type: boolean
+      courierID:
+        type: integer
+    type: object
+info:
+  contact: {}
+paths:
+  /apikey:
+    get:
+      consumes:
+      - application/json
+      description: Issues a user with a new api key, reissuing a new one invalidates
+        old api keys
+      parameters:
+      - description: 'token: test'
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: email
+        in: query
+        name: email
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Issues an API key
+          schema:
+            $ref: '#/definitions/useraccount.NewAPIKeyResponse'
+        "400":
+          description: Issues an API key
+          schema:
+            $ref: '#/definitions/useraccount.ErrorResponse'
+        "500":
+          description: Issues an API key
+          schema:
+            $ref: '#/definitions/useraccount.ErrorResponse'
+      summary: Issues an API key
+  /driver/job/complete:
+    post:
+      consumes:
+      - application/json
+      description: retrieves all the jobs of a user
+      parameters:
+      - description: 'token: test'
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: job-id
+        in: query
+        name: job-id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Updates a job to assigned
+          schema:
+            items:
+              $ref: '#/definitions/deliveries.JobResponse'
+            type: array
+        "400":
+          description: Updates a job to assigned
+          schema:
+            $ref: '#/definitions/deliveries.ErrorResponse'
+        "500":
+          description: Updates a job to assigned
+          schema:
+            $ref: '#/definitions/deliveries.ErrorResponse'
+      summary: Updates a job to StatusComplete
+  /driver/job/on-route-to-drop-off:
+    post:
+      consumes:
+      - application/json
+      description: retrieves all the jobs of a user
+      parameters:
+      - description: 'token: test'
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: job-id
+        in: query
+        name: job-id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Updates a job to assigned
+          schema:
+            items:
+              $ref: '#/definitions/deliveries.JobResponse'
+            type: array
+        "400":
+          description: Updates a job to assigned
+          schema:
+            $ref: '#/definitions/deliveries.ErrorResponse'
+        "500":
+          description: Updates a job to assigned
+          schema:
+            $ref: '#/definitions/deliveries.ErrorResponse'
+      summary: Updates a job to OnRouteToDropOffLocation
+  /driver/job/on-route-to-pick-up:
+    post:
+      consumes:
+      - application/json
+      description: retrieves all the jobs of a user
+      parameters:
+      - description: 'token: test'
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: job-id
+        in: query
+        name: job-id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Updates a job to assigned
+          schema:
+            items:
+              $ref: '#/definitions/deliveries.JobResponse'
+            type: array
+        "400":
+          description: Updates a job to assigned
+          schema:
+            $ref: '#/definitions/deliveries.ErrorResponse'
+        "500":
+          description: Updates a job to assigned
+          schema:
+            $ref: '#/definitions/deliveries.ErrorResponse'
+      summary: Updates a job to OnRouteToPickUpLocation
+  /driver/job/parcel-collected:
+    post:
+      consumes:
+      - application/json
+      description: retrieves all the jobs of a user
+      parameters:
+      - description: 'token: test'
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: job-id
+        in: query
+        name: job-id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Updates a job to assigned
+          schema:
+            items:
+              $ref: '#/definitions/deliveries.JobResponse'
+            type: array
+        "400":
+          description: Updates a job to assigned
+          schema:
+            $ref: '#/definitions/deliveries.ErrorResponse'
+        "500":
+          description: Updates a job to assigned
+          schema:
+            $ref: '#/definitions/deliveries.ErrorResponse'
+      summary: Updates a job to ParcelCollected
+  /driver/jobs:
+    get:
+      consumes:
+      - application/json
+      description: Gets the jobs of a driver
+      parameters:
+      - description: 'token: test'
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: driver-id
+        in: query
+        name: job-id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Gets the jobs of a driver
+          schema:
+            items:
+              $ref: '#/definitions/deliveries.JobResponse'
+            type: array
+        "400":
+          description: Gets the jobs of a driver
+          schema:
+            $ref: '#/definitions/deliveries.ErrorResponse'
+        "500":
+          description: Gets the jobs of a driver
+          schema:
+            $ref: '#/definitions/deliveries.ErrorResponse'
+      summary: Gets the jobs of a driver
+  /driver/save-location:
+    post:
+      consumes:
+      - application/json
+      description: saves the location of a driver
+      parameters:
+      - description: 'token: test'
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: latitude and longitude
+        in: body
+        name: driverLocation
+        required: true
+        schema:
+          $ref: '#/definitions/useraccount.DriverLocation'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ""
+        "400":
+          description: Updates a job to assigned
+          schema:
+            $ref: '#/definitions/useraccount.ErrorResponse'
+        "500":
+          description: Updates a job to assigned
+          schema:
+            $ref: '#/definitions/useraccount.ErrorResponse'
+      summary: saves the location of a driver
+  /driver/status:
+    post:
+      consumes:
+      - application/json
+      description: saves the status of a driver
+      parameters:
+      - description: 'token: test'
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: the status
+        in: body
+        name: driverLocation
+        required: true
+        schema:
+          $ref: '#/definitions/useraccount.DriverStatus'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ""
+        "400":
+          description: Updates a job to assigned
+          schema:
+            $ref: '#/definitions/useraccount.ErrorResponse'
+        "500":
+          description: Updates a job to assigned
+          schema:
+            $ref: '#/definitions/useraccount.ErrorResponse'
+      summary: saves the status of a driver
+  /job:
+    get:
+      consumes:
+      - application/json
+      description: Gets all the information and details of a job
+      parameters:
+      - description: JWT token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: job-id
+        in: query
+        name: job-id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Get job, retrieves the details of a job
+          schema:
+            $ref: '#/definitions/deliveries.JobResponse'
+        "400":
+          description: ErrorResponse
+          schema:
+            $ref: '#/definitions/deliveries.ErrorResponse'
+        "500":
+          description: ErrorResponse
+          schema:
+            $ref: '#/definitions/deliveries.ErrorResponse'
+      summary: Gets the information of a job
+    post:
+      consumes:
+      - application/json
+      description: creates a new job (its order status is open and needs to be closed
+        to be processed)
+      parameters:
+      - description: JWT token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Add account
+        in: body
+        name: job
+        required: true
+        schema:
+          $ref: '#/definitions/deliveries.JobRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: New job, replies with all the created details of a job
+          schema:
+            $ref: '#/definitions/deliveries.JobResponse'
+        "400":
+          description: ErrorResponse
+          schema:
+            $ref: '#/definitions/deliveries.ErrorResponse'
+        "500":
+          description: ErrorResponse
+          schema:
+            $ref: '#/definitions/deliveries.ErrorResponse'
+      summary: Creates a new job with its status open
+  /job/cancel:
+    post:
+      consumes:
+      - application/json
+      description: We normally cancel a job when its payment intend has not gone through
+      parameters:
+      - description: JWT token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: job-id
+        in: query
+        name: job-id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ""
+        "400":
+          description: ErrorResponse
+          schema:
+            $ref: '#/definitions/deliveries.ErrorResponse'
+        "500":
+          description: ErrorResponse
+          schema:
+            $ref: '#/definitions/deliveries.ErrorResponse'
+      summary: Updates the status of a job to cancel
+  /job/close:
+    post:
+      consumes:
+      - application/json
+      description: We normally close a job when its ready to be processed and its
+        payment intend has gone through
+      parameters:
+      - description: JWT token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: job-id
+        in: query
+        name: job-id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ""
+        "400":
+          description: ErrorResponse
+          schema:
+            $ref: '#/definitions/deliveries.ErrorResponse'
+        "500":
+          description: ErrorResponse
+          schema:
+            $ref: '#/definitions/deliveries.ErrorResponse'
+      summary: Updates the status of a job to close
+  /job/driver-info:
+    get:
+      consumes:
+      - application/json
+      description: Retrieves the information of a driver from an order
+      parameters:
+      - description: 'token: test'
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: job-id
+        in: query
+        name: job-id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Gets the information of a driver from an order
+          schema:
+            $ref: '#/definitions/useraccount.DriverInfo'
+        "400":
+          description: Gets the information of a driver from an order
+          schema:
+            $ref: '#/definitions/useraccount.ErrorResponse'
+        "500":
+          description: Gets the information of a driver from an order
+          schema:
+            $ref: '#/definitions/useraccount.ErrorResponse'
+      summary: Retrieves the information of a driver from an order
+  /job/eta:
+    post:
+      consumes:
+      - application/json
+      description: retrieves the estimated time for a driver to arrive at its next
+        destination
+      parameters:
+      - description: 'token: test'
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: job-id
+        in: query
+        name: job-id
+        required: true
+        type: string
+      - description: driver-id
+        in: query
+        name: driver-id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ""
+        "400":
+          description: Get job
+          schema:
+            $ref: '#/definitions/deliveries.ErrorResponse'
+        "500":
+          description: Get job
+          schema:
+            $ref: '#/definitions/deliveries.ErrorResponse'
+      summary: Gets the ETA of a job
+  /job/order-status:
+    get:
+      consumes:
+      - application/json
+      description: Retrieves the order status of a job, this status refers to the
+        payment stage open,close,cancel
+      parameters:
+      - description: JWT token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: job-id
+        in: query
+        name: job-id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: GetJobOrderStatus, gets the status of a job
+          schema:
+            $ref: '#/definitions/deliveries.JobOrderStatusResponse'
+        "400":
+          description: Get Job Status
+          schema:
+            $ref: '#/definitions/deliveries.ErrorResponse'
+        "500":
+          description: Get Job Status
+          schema:
+            $ref: '#/definitions/deliveries.ErrorResponse'
+      summary: Retrieves the order status of a job
+  /job/poa:
+    get:
+      consumes:
+      - application/json
+      description: retrieves an image for proof of delivery
+      parameters:
+      - description: 'token: test'
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: job-id
+        in: query
+        name: job-id
+        required: true
+        type: string
+      - description: driver-id
+        in: query
+        name: driver-id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ""
+        "400":
+          description: Get job
+          schema:
+            $ref: '#/definitions/deliveries.ErrorResponse'
+        "500":
+          description: Get job
+          schema:
+            $ref: '#/definitions/deliveries.ErrorResponse'
+      summary: retrieves an image for proof of delivery
+    post:
+      consumes:
+      - application/json
+      description: uploads an image for proof of delivery
+      parameters:
+      - description: 'token: test'
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: job-id
+        in: query
+        name: job-id
+        required: true
+        type: string
+      - description: driver-id
+        in: query
+        name: driver-id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ""
+        "400":
+          description: Get job
+          schema:
+            $ref: '#/definitions/deliveries.ErrorResponse'
+        "500":
+          description: Get job
+          schema:
+            $ref: '#/definitions/deliveries.ErrorResponse'
+      summary: uploads an image for proof of delivery
+  /job/status:
+    get:
+      consumes:
+      - application/json
+      description: Retrieves the status of a job, this status refers to in which stage
+        the delivery is at
+      parameters:
+      - description: JWT token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: job-id
+        in: query
+        name: job-id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: The status of a job
+          schema:
+            $ref: '#/definitions/deliveries.JobStatusResponse'
+        "400":
+          description: ErrorResponse
+          schema:
+            $ref: '#/definitions/deliveries.ErrorResponse'
+        "500":
+          description: ErrorResponse
+          schema:
+            $ref: '#/definitions/deliveries.ErrorResponse'
+      summary: Retrieves the status of a job
+  /job/user:
+    get:
+      consumes:
+      - application/json
+      description: retrieves all the jobs of a user
+      parameters:
+      - description: 'token: test'
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: id
+        in: query
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: GetJobs, gets all the jobs of a user
+          schema:
+            items:
+              $ref: '#/definitions/deliveries.JobResponse'
+            type: array
+        "400":
+          description: GetJobs
+          schema:
+            $ref: '#/definitions/deliveries.ErrorResponse'
+        "500":
+          description: GetJobs
+          schema:
+            $ref: '#/definitions/deliveries.ErrorResponse'
+      summary: Gets all the jobs of a user
+  /login:
+    post:
+      consumes:
+      - application/json
+      description: Logins a user
+      parameters:
+      - description: Logins a user
+        in: body
+        name: job
+        required: true
+        schema:
+          $ref: '#/definitions/useraccount.LoginUser'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ""
+          headers:
+            Token:
+              description: authorisation token
+              type: string
+        "400":
+          description: Logins a user
+          schema:
+            $ref: '#/definitions/useraccount.ErrorResponse'
+        "500":
+          description: Logins a user
+          schema:
+            $ref: '#/definitions/useraccount.ErrorResponse'
+      summary: Logins a user
+  /management/driver-state:
+    get:
+      consumes:
+      - application/json
+      description: Retrieves all the current driver statuses
+      parameters:
+      - description: 'token: test'
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/usersvc.DriverState'
+        "400":
+          description: driver state
+          schema:
+            $ref: '#/definitions/management.ErrorResponse'
+        "500":
+          description: driver state
+          schema:
+            $ref: '#/definitions/management.ErrorResponse'
+      summary: Retrieves all the current driver statuses
+  /management/jobs:
+    get:
+      consumes:
+      - application/json
+      description: Retrieves all the jobs
+      parameters:
+      - description: 'token: test'
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/deliverysvc.Job'
+        "400":
+          description: job
+          schema:
+            $ref: '#/definitions/management.ErrorResponse'
+        "500":
+          description: job
+          schema:
+            $ref: '#/definitions/management.ErrorResponse'
+      summary: Retrieves all the jobs
+  /payment/config:
+    get:
+      consumes:
+      - application/json
+      description: retrieves the publishable key for stripe
+      parameters:
+      - description: 'token: test'
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Public key
+          schema:
+            $ref: '#/definitions/payments.PublicKey'
+        "400":
+          description: Config
+          schema:
+            $ref: '#/definitions/payments.ErrorResponse'
+        "500":
+          description: Config
+          schema:
+            $ref: '#/definitions/payments.ErrorResponse'
+      summary: Gets the publishable key for stripe
+  /payment/create-intent:
+    post:
+      consumes:
+      - application/json
+      description: retrieves the publishable key for stripe
+      parameters:
+      - description: 'token: test'
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: job-id
+        in: query
+        name: job-id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Public key
+          schema:
+            $ref: '#/definitions/payments.ClientSecret'
+        "400":
+          description: Client Secret
+          schema:
+            $ref: '#/definitions/payments.ErrorResponse'
+        "500":
+          description: Client Secret
+          schema:
+            $ref: '#/definitions/payments.ErrorResponse'
+      summary: Gets the publishable key for stripe
+  /register/admin:
+    post:
+      consumes:
+      - application/json
+      description: Registers a new admin user
+      parameters:
+      - description: Registers a new user
+        in: body
+        name: job
+        required: true
+        schema:
+          $ref: '#/definitions/useraccount.UserRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Registers a new user
+          headers:
+            Token:
+              description: authorisation token
+              type: string
+          schema:
+            $ref: '#/definitions/useraccount.UserResponse'
+        "400":
+          description: Registers a new user
+          schema:
+            $ref: '#/definitions/useraccount.ErrorResponse'
+        "500":
+          description: Registers a new user
+          schema:
+            $ref: '#/definitions/useraccount.ErrorResponse'
+      summary: Registers a new admin user
+  /register/courier:
+    post:
+      consumes:
+      - application/json
+      description: Registers a new courier user
+      parameters:
+      - description: Registers a new user
+        in: body
+        name: job
+        required: true
+        schema:
+          $ref: '#/definitions/useraccount.UserRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Registers a new user
+          headers:
+            Token:
+              description: authorisation token
+              type: string
+          schema:
+            $ref: '#/definitions/useraccount.UserResponse'
+        "400":
+          description: Registers a new user
+          schema:
+            $ref: '#/definitions/useraccount.ErrorResponse'
+        "500":
+          description: Registers a new user
+          schema:
+            $ref: '#/definitions/useraccount.ErrorResponse'
+      summary: Registers a new courier user
+  /register/customer:
+    post:
+      consumes:
+      - application/json
+      description: Registers a new customer user
+      parameters:
+      - description: Registers a new user
+        in: body
+        name: job
+        required: true
+        schema:
+          $ref: '#/definitions/useraccount.UserRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Registers a new user
+          headers:
+            Token:
+              description: authorisation token
+              type: string
+          schema:
+            $ref: '#/definitions/useraccount.UserResponse'
+        "400":
+          description: Registers a new user
+          schema:
+            $ref: '#/definitions/useraccount.ErrorResponse'
+        "500":
+          description: Registers a new user
+          schema:
+            $ref: '#/definitions/useraccount.ErrorResponse'
+      summary: Registers a new customer user
+  /update-login:
+    put:
+      consumes:
+      - application/json
+      description: Updates a user password
+      parameters:
+      - description: 'token: test'
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Logins a user
+        in: body
+        name: updatePassword
+        required: true
+        schema:
+          $ref: '#/definitions/useraccount.UpdatePasswordRequest'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: ""
+        "400":
+          description: Logins a user
+          schema:
+            $ref: '#/definitions/useraccount.ErrorResponse'
+        "500":
+          description: Logins a user
+          schema:
+            $ref: '#/definitions/useraccount.ErrorResponse'
+      summary: Updates a user password
+  /user/info:
+    get:
+      consumes:
+      - application/json
+      description: Retrieves user information from the JWT token
+      parameters:
+      - description: 'token: test'
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Retrieves user information
+          schema:
+            $ref: '#/definitions/useraccount.UserInfo'
+        "400":
+          description: Retrieves user information
+          schema:
+            $ref: '#/definitions/useraccount.ErrorResponse'
+        "500":
+          description: Retrieves user information
+          schema:
+            $ref: '#/definitions/useraccount.ErrorResponse'
+      summary: Retrieves user information
+  /verify/postcode:
+    post:
+      consumes:
+      - application/json
+      description: Checks if a postcode is valid returns 200 if successful
+      parameters:
+      - description: 'token: test'
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: CR0 2HS
+        in: query
+        name: postcode
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ""
+        "404":
+          description: ""
+      summary: Checks if a postcode is valid
+swagger: "2.0"
